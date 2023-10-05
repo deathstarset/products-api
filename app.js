@@ -14,10 +14,11 @@ app.get("/", (req, res) => {
   res.send("Products api");
 });
 app.use("/api/v1/auth", authRouter);
-app.use(notFoundMiddleware);
+
 app.use(authorizationMiddleware);
 app.use("/api/v1/products", productsRouter);
 app.use(errorHandler);
+app.use(notFoundMiddleware);
 const start = async () => {
   try {
     await connectDB(process.env.DB_URI);
