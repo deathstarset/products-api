@@ -7,10 +7,14 @@ const authRouter = require("./routes/authentication");
 const errorHandler = require("./middlewares/error-handler");
 const productsRouter = require("./routes/products");
 const authorizationMiddleware = require("./middlewares/authorization");
+const notFoundMiddleware = require("./middlewares/not-found");
+
 app.use(express.json());
-
+app.get("/", (req, res) => {
+  res.send("Products api");
+});
 app.use("/api/v1/auth", authRouter);
-
+app.use(notFoundMiddleware);
 app.use(authorizationMiddleware);
 app.use("/api/v1/products", productsRouter);
 app.use(errorHandler);
